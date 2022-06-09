@@ -32,8 +32,7 @@ table -> room
 @AllArgsConstructor
 @Entity
 //@Builder
-
-//@Table(schema= "sign",name = "user")
+@Table(schema= "sign",name = "user")
 public class User implements Serializable{
 	/**
 	 * 

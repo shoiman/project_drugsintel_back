@@ -20,7 +20,7 @@ import lombok.Setter;
 @AllArgsConstructor
 @Getter
 @Setter
-@Table(schema= "sign",name = "user_role")
+//@Table(schema= "sign",name = "user_role")
 @IdClass(UserRoleId.class)
 public class UserRole implements Serializable{
 	/**

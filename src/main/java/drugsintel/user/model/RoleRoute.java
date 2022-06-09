@@ -13,7 +13,7 @@ import drugsintel.user.model.id.RoleRouteId;
 @Getter
 @Setter
 @ToString
-@Table(schema= "sign",name = "role_route")
+//@Table(schema= "sign",name = "role_route")
 public class RoleRoute {
 
     @EmbeddedId

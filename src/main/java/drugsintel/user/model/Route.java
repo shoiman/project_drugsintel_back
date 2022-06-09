@@ -19,7 +19,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(schema= "sign",name = "route")
+//@Table(schema= "sign",name = "route")
 public class Route {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

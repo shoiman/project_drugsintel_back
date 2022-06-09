@@ -21,7 +21,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = { "id" })
 @NoArgsConstructor
 @Entity
-@Table(schema= "sign",name = "role")
+//@Table(schema= "sign",name = "role")
 public class Role implements Serializable{
 	/**
 	 * 
@@ -35,7 +35,9 @@ public class Role implements Serializable{
 	String name;
 
 	@ManyToMany
-	@JoinTable(schema= "sign",name = "role_route",
+	@JoinTable(
+			//schema= "sign",
+	name = "role_route",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "route_id"))
 	Set <Route> routes;

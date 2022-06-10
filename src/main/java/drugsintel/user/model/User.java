@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -31,8 +32,9 @@ table -> room
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
+@NotNull
 //@Builder
-@Table(schema= "sign",name = "user")
+@Table(name = "users")
 public class User implements Serializable{
 	/**
 	 * 

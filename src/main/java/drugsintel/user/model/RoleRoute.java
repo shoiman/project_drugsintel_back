@@ -4,6 +4,7 @@ package drugsintel.user.model;
 import lombok.*;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 import drugsintel.user.model.id.RoleRouteId;
 
@@ -12,8 +13,9 @@ import drugsintel.user.model.id.RoleRouteId;
 @AllArgsConstructor
 @Getter
 @Setter
+@NotNull
 @ToString
-@Table(schema= "sign",name = "role_route")
+//@Table(schema= "sign",name = "role_route")
 public class RoleRoute {
 
     @EmbeddedId

@@ -72,10 +72,8 @@ public class AuthController {
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		String jwt = jwtUtils.generateJwtToken(userDetails);
 		System.out.println(userDetails.getUsername());
-		
-		
+				
 		String role = userService.getUser(userDetails.getUsername().toLowerCase()).getRole();
-
 						
 		//roles
 		Role userRole = roleRepository.findByName(role).get();		

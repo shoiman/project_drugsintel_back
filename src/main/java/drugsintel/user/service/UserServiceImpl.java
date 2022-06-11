@@ -2,8 +2,6 @@ package drugsintel.user.service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
-import java.util.Optional;
 import java.util.stream.Stream;
 
 import javax.transaction.Transactional;
@@ -17,7 +15,6 @@ import drugsintel.user.dto.EmailDto;
 import drugsintel.user.dto.RegUserDto;
 import drugsintel.user.dto.UpdateUserDto;
 import drugsintel.user.dto.UserDto;
-import drugsintel.user.exception.EntityExistException;
 import drugsintel.user.exception.RoleNotFoundException;
 import drugsintel.user.exception.UserAlreadyExistsException;
 import drugsintel.user.exception.UserNotActiveException;
@@ -66,6 +63,8 @@ public class UserServiceImpl implements UserService {
 			throw new UserAlreadyExistsException(user.getUsername());
 		}
 		user = modelMapper.map(regUserDto, User.class);
+		
+		user.setUsername(regUserDto.getUsername().toLowerCase());
 		user.setPassword(passwordEncoder.encode(user.getPassword()));
 		userRepository.save(user);
 		Role role = roleRepository.findByName("user".toUpperCase()).orElseThrow(() -> new RoleNotFoundException());
@@ -78,6 +77,7 @@ public class UserServiceImpl implements UserService {
 	
 	///GET USER
 	@Override
+	@Transactional
 	public UserDto getUser(String username) {		
 		User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException());
 		if (!user.getActive()) {
@@ -87,8 +87,7 @@ public class UserServiceImpl implements UserService {
 		//check role exist
 		UserRole userRole = userRoleRepository.findFirstByUserIdAndRoleStartBeforeAndRoleEndAfterOrderByRoleStartDesc(user.getId(), LocalDateTime.now(), LocalDateTime.now())
 				.orElseThrow(UserNotFoundException::new);
-	
-		
+			
 		Role role = roleRepository.getById(userRole.getRoleId());
 		
 		UserDto userDto = modelMapper.map(user, UserDto.class);

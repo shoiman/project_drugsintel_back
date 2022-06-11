@@ -19,6 +19,7 @@ import drugsintel.user.dto.UpdateUserDto;
 import drugsintel.user.dto.UserDto;
 import drugsintel.user.exception.EntityExistException;
 import drugsintel.user.exception.RoleNotFoundException;
+import drugsintel.user.exception.UserAlreadyExistsException;
 import drugsintel.user.exception.UserNotActiveException;
 import drugsintel.user.exception.UserNotFoundException;
 import drugsintel.user.model.Role;
@@ -62,7 +63,7 @@ public class UserServiceImpl implements UserService {
 	public void addUser(RegUserDto regUserDto) {
 		User user = userRepository.findByEmail(regUserDto.getEmail()).orElse(null);
 		if (user != null) {
-			throw new EntityExistException();
+			throw new UserAlreadyExistsException(user.getUsername());
 		}
 		user = modelMapper.map(regUserDto, User.class);
 		user.setPassword(passwordEncoder.encode(user.getPassword()));

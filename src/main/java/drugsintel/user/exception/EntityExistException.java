@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
-@ResponseStatus(code = HttpStatus.NOT_FOUND)
+@ResponseStatus(code = HttpStatus.IM_USED)
 public class EntityExistException extends RuntimeException {
 
 	/**

@@ -62,10 +62,10 @@ public class UserDetailsImpl implements UserDetails {
 //		Set<String> roles = new HashSet<>();
 //		roles.add("GUEST");
 //		roles.add("USER");
-//		return authorities.stream()
+		return authorities.stream()
 				//.map(role -> new SimpleGrantedAuthority(role.getAuthority()))
-				//.collect(Collectors.toList());
-		return authorities;
+				.collect(Collectors.toList());
+//		return authorities;
 	}
 
 	@Override

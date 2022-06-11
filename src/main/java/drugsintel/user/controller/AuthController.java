@@ -14,6 +14,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -61,11 +62,11 @@ public class AuthController {
 	
 	@PostMapping("/login")	
 	public TokenDto authenticateUser(@Validated @RequestBody EmailDto emailDto) {
-		UserDto temp1 = userService.getUser(emailDto.getUsername());
+		UserDto temp1 = userService.getUser(emailDto.getUsername().toLowerCase());
 		System.out.println(temp1.getUsername());
 		
 		Authentication authentication = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(emailDto.getUsername(), emailDto.getPassword()));
+				new UsernamePasswordAuthenticationToken(emailDto.getUsername().toLowerCase(), emailDto.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
@@ -92,6 +93,11 @@ public class AuthController {
 	@PostMapping("/registration")
 	public void registerUser(@RequestBody RegUserDto regUserDto) {
 		userService.addUser(regUserDto);
+	}
+	
+	@GetMapping("/username/{username}")
+	public UserDto getUser(@PathVariable String username) {
+		return userService.getUser(username);
 	}
 
 	

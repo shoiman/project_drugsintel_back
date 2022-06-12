@@ -105,15 +105,15 @@ public class UserServiceImpl implements UserService {
 		if (!user.getActive()) {
 			throw new UserNotActiveException();
 		}
-		System.out.println(username);
-		System.out.println(user.getUsername());
+//		System.out.println(username);
+//		System.out.println(user.getUsername());
 		user.setActive(false);
 		UserRole userRole = userRoleRepository
 				.findFirstByUserIdAndRoleStartBeforeAndRoleEndAfterOrderByRoleStartDesc(user.getId(), LocalDateTime.now(), LocalDateTime.now())
 				.orElseThrow(UserNotFoundException::new);
 		System.out.println(userRole);
 		Role role = roleRepository.getById(userRole.getRoleId());
-		System.out.println(role);
+//		System.out.println(role);
 		UserDto userDto = modelMapper.map(user, UserDto.class);
 		userDto.setExpireDate(LocalDate.now());
 		userDto.setRole(role.getName());

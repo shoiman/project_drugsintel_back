@@ -62,8 +62,6 @@ public class AuthController {
 	
 	@PostMapping("/login")	
 	public TokenDto authenticateUser(@Validated @RequestBody EmailDto emailDto) {
-		UserDto temp1 = userService.getUser(emailDto.getUsername().toLowerCase());
-		System.out.println(temp1.getUsername());
 		
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(emailDto.getUsername().toLowerCase(), emailDto.getPassword()));
@@ -71,7 +69,6 @@ public class AuthController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		String jwt = jwtUtils.generateJwtToken(userDetails);
-		System.out.println(userDetails.getUsername());
 				
 		String role = userService.getUser(userDetails.getUsername().toLowerCase()).getRole();
 						
@@ -101,7 +98,6 @@ public class AuthController {
 	
 	@DeleteMapping("/delete/{username}")
 	public UserDto deleteUser(@PathVariable String username) {
-		System.out.println("delete user");
 		return userService.deleteUser(username);
 	}
 	
@@ -117,7 +113,6 @@ public class AuthController {
 	
 	@PutMapping("/user/{username}/role/{role}/period/{period}")
 	public UserDto changeRole(@PathVariable String username,@PathVariable String role, @PathVariable int period) {
-		System.out.println("change role");
 		return userService.changeRole(username, role, period);
 	}
 	

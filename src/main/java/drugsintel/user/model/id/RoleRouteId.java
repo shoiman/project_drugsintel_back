@@ -6,12 +6,14 @@ import javax.persistence.Column;
 import javax.persistence.Embeddable;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode(of = {"routeId", "roleId"})
 @Embeddable
 //Такую аннотацию дают, когда связь с классом существует,
 //и в структуре классов следует показать это,

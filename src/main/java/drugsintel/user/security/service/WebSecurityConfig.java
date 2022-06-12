@@ -66,9 +66,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.access("#username == authentication.name")
 			.antMatchers(HttpMethod.PUT, "/accounting/update/{username}/**")
 				.access("#username == authentication.name")	
-			.antMatchers("/accounting/user/{username}/role/{role}/**")
-				.access("#username == authentication.name")	
-				//.access("hasAuthority('ADMIN')")
+			.antMatchers(HttpMethod.PUT, "/accounting/user/{username}/role/{role}/**")
+				//.access("#username == authentication.name")	
+				.access("hasAuthority('ADMIN')")
+			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")
+				.access("#username == authentication.name")
 			.anyRequest().authenticated();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}

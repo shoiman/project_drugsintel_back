@@ -4,12 +4,14 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 
 import lombok.AllArgsConstructor;
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@EqualsAndHashCode( of = {"userId", "roleId", "roleStart", "roleEnd"})
 public class UserRoleId implements Serializable{
 
 	/**

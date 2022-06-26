@@ -58,6 +58,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	@Transactional
 	public void addUser(RegUserDto regUserDto) {
+		System.out.println("i am in addUser method: " + regUserDto.getUsername());
 		User user = userRepository.findByEmail(regUserDto.getEmail()).orElse(null);
 		if (user != null) {
 			throw new UserAlreadyExistsException(user.getUsername());
@@ -80,6 +81,8 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public UserDto getUser(String username) {		
 		User user = userRepository.findByUsername(username).orElseThrow(() -> new UserNotFoundException());
+		System.out.println("2: i was here " + user.getUsername());
+		System.out.println("2: i was here " + user.getEmail());
 		if (!user.getActive()) {
 			throw new UserNotActiveException();
 		}

@@ -1,6 +1,5 @@
 package drugsintel.user.controller;
 
-
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -36,16 +35,13 @@ import drugsintel.user.security.jwt.JwtUtils;
 import drugsintel.user.security.service.UserDetailsImpl;
 import drugsintel.user.service.UserService;
 
-
-
-
-@CrossOrigin(origins = "*", 
-			methods = {RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE, RequestMethod.PUT},
-			allowedHeaders = "*")
+@CrossOrigin(origins="*", maxAge = 3600, methods = { RequestMethod.GET, RequestMethod.POST, RequestMethod.DELETE,
+		RequestMethod.PUT },
+ 		allowedHeaders = "*")
 @RestController
 @RequestMapping("/accounting")
 public class AuthController {
-		
+
 	AuthenticationManager authenticationManager;
 	RoleRepository roleRepository;
 	UserService userService;
@@ -53,8 +49,8 @@ public class AuthController {
 	JwtUtils jwtUtils;
 
 	@Autowired
-	public AuthController(UserService userService, RoleRepository roleRepository,
-			PasswordEncoder encoder, JwtUtils jwtUtils, AuthenticationManager authenticationManager) {
+	public AuthController(UserService userService, RoleRepository roleRepository, PasswordEncoder encoder,
+			JwtUtils jwtUtils, AuthenticationManager authenticationManager) {
 		this.userService = userService;
 		this.roleRepository = roleRepository;
 		this.encoder = encoder;
@@ -62,70 +58,64 @@ public class AuthController {
 		this.authenticationManager = authenticationManager;
 	}
 
-	
-	@PostMapping("/login")	
+	@PostMapping("/login")
 	public TokenDto authenticateUser(@Validated @RequestBody EmailDto emailDto) {
-		
+
 		Authentication authentication = authenticationManager.authenticate(
 				new UsernamePasswordAuthenticationToken(emailDto.getUsername().toLowerCase(), emailDto.getPassword()));
 
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 		UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
 		String jwt = jwtUtils.generateJwtToken(userDetails);
-				
+
 		String role = userService.getUser(userDetails.getUsername().toLowerCase()).getRole();
-						
-		//roles
-		Role userRole = roleRepository.findByName(role).get();		
-		//user id
-		Long id_user = userDetails.getId();		
-		//routes
-		Set <Route> temp = userRole.getRoutes();				
-		List<String> routes = temp.stream()
-						.map(l -> l.getRouteName())
-						.collect(Collectors.toList());
-		
-		return new TokenDto(jwt, id_user, role, routes);		
+
+		// roles
+		Role userRole = roleRepository.findByName(role).get();
+		// user id
+		Long id_user = userDetails.getId();
+		// routes
+		Set<Route> temp = userRole.getRoutes();
+		List<String> routes = temp.stream().map(l -> l.getRouteName()).collect(Collectors.toList());
+
+		return new TokenDto(jwt, id_user, role, routes);
 	}
-	
+
 	@PostMapping("/registration")
 	public void registerUser(@RequestBody RegUserDto regUserDto) {
+		System.out.println("controller regist");
 		userService.addUser(regUserDto);
 	}
-	
+
 	@GetMapping("/username/{username}")
 	public UserDto getUser(@PathVariable String username) {
+		System.out.println("1: i was here");
 		return userService.getUser(username);
 	}
 
-	
 	@DeleteMapping("/delete/{username}")
 	public UserDto deleteUser(@PathVariable String username) {
 		return userService.deleteUser(username);
 	}
-	
-	
+
 	@PutMapping("/update*")
-	public UserDto updateUser(@RequestHeader("Authorization") String token,
-								@RequestBody UpdateUserDto updateUserDto) {
+	public UserDto updateUser(@RequestHeader("Authorization") String token, @RequestBody UpdateUserDto updateUserDto) {
 		String temp = token.substring(7, token.length());
 		String username = jwtUtils.getUserNameFromJwtToken(temp);
 		return userService.updateUser(username, updateUserDto);
 	}
-	
-	
+
 	@PutMapping("/user/{username}/role/{role}/period/{period}")
-	public UserDto changeRole(@PathVariable String username,@PathVariable String role, @PathVariable int period) {
+	public UserDto changeRole(@PathVariable String username, @PathVariable String role, @PathVariable int period) {
 		return userService.changeRole(username, role, period);
 	}
-	
+
 	@PutMapping("/password")
-	public void changePassword(@RequestHeader("Authorization") String token, @RequestHeader("X-Password") String password) {
+	public void changePassword(@RequestHeader("Authorization") String token,
+			@RequestHeader("X-Password") String password) {
 		String temp = token.substring(7, token.length());
 		String username = jwtUtils.getUserNameFromJwtToken(temp);
 		userService.changePassword(username, password);
 	}
 
-
-	
 }

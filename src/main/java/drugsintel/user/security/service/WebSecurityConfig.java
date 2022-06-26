@@ -58,10 +58,12 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 			.authorizeRequests()
-			.antMatchers("/accounting/registration/**")
+			.antMatchers(HttpMethod.POST,"/accounting/registration/**")
 				.permitAll()
 			.antMatchers("/accounting/login/**")
 				.permitAll()
+			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")//getuser test
+				.permitAll()//get user test
 			.antMatchers(HttpMethod.DELETE, "/accounting/delete/{username}/**")
 				.access("#username == authentication.name")
 			.antMatchers(HttpMethod.PUT, "/accounting/update/{username}/**")
@@ -69,9 +71,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 			.antMatchers(HttpMethod.PUT, "/accounting/user/{username}/role/{role}/**")
 				//.access("#username == authentication.name")	
 				.access("hasAuthority('ADMIN')")
-			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")
-				.access("#username == authentication.name")
+//			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")
+//				.access("#username == authentication.name")
 			.anyRequest().authenticated();
 		http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
 	}
+
 }

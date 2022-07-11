@@ -70,6 +70,8 @@ public class AuthController {
 
 		String role = userService.getUser(userDetails.getUsername().toLowerCase()).getRole();
 
+		String user_e = userDetails.getEmail();
+		String user_n = userDetails.getUsername();
 		// roles
 		Role userRole = roleRepository.findByName(role).get();
 		// user id
@@ -78,7 +80,7 @@ public class AuthController {
 		Set<Route> temp = userRole.getRoutes();
 		List<String> routes = temp.stream().map(l -> l.getRouteName()).collect(Collectors.toList());
 
-		return new TokenDto(jwt, id_user, role, routes);
+		return new TokenDto(jwt, user_n, user_e, id_user, role, routes);
 	}
 
 	@PostMapping("/registration")

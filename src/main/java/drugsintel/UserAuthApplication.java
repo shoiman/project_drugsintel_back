@@ -12,14 +12,4 @@ public class UserAuthApplication {
 		SpringApplication.run(UserAuthApplication.class, args);
 	}
 
-//	@Override
-//	public void run(String... args) throws Exception {
-//		if (!userRepository.existsById("admin")) {
-//			String password = passwordEncoder.encode("admin");
-//			UserAccount userAccount = new UserAccount("admin", "admin@grugsintel.com", password);
-//			userAccount.setRole("ADMIN");
-//			userRepository.save(userAccount);
-//		}
-
-//	}
 }

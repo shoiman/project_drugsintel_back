@@ -17,6 +17,8 @@ import lombok.Setter;
 public class TokenDto {
 		
 	private String token;
+	private String username;
+	private String email;
 	private String type = "Bearer";
 	
 	//new field
@@ -36,6 +38,15 @@ public class TokenDto {
 	public TokenDto(String token, String refreshToken, Long id, String role, List<String> routes) {
 		this.token = token;
 		this.refreshToken = refreshToken;
+		this.id = id;
+		this.role = role;
+		this.routes = routes;
+	}
+	
+	public TokenDto(String token, String username, String email, Long id, String role, List<String> routes) {
+		this.token = token;
+		this.username = username;
+		this.email = email;
 		this.id = id;
 		this.role = role;
 		this.routes = routes;

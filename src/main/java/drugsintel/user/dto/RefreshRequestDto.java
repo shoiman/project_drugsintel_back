@@ -1,9 +1,14 @@
-package drugsintel.user.token;
+package drugsintel.user.dto;
 
 import javax.validation.constraints.NotBlank;
 
-public class TokenRefreshRequest {
-	
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
+
+@AllArgsConstructor
+@NoArgsConstructor
+public class RefreshRequestDto {
+
 	@NotBlank
 	private String refreshToken;
 
@@ -14,6 +19,5 @@ public class TokenRefreshRequest {
 	public void setRefreshToken(String refreshToken) {
 		this.refreshToken = refreshToken;
 	}
-	
 
 }

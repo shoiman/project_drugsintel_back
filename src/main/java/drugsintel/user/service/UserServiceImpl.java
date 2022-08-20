@@ -59,10 +59,12 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void addUser(RegUserDto regUserDto) {
 		System.out.println("i am in addUser method: " + regUserDto.getUsername());
+		//check by mail
 		User user = userRepository.findByEmail(regUserDto.getEmail()).orElse(null);
 		if (user != null) {
 			throw new UserAlreadyExistsException(user.getUsername());
 		}
+		
 		user = modelMapper.map(regUserDto, User.class);
 		
 		user.setUsername(regUserDto.getUsername().toLowerCase());

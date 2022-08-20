@@ -15,7 +15,6 @@ import drugsintel.user.model.id.RoleRouteId;
 @Setter
 @NotNull
 @ToString
-//@Table(schema= "sign",name = "role_route")
 public class RoleRoute {
 
     @EmbeddedId

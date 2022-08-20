@@ -9,7 +9,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.EqualsAndHashCode;
@@ -23,7 +22,6 @@ import lombok.Setter;
 @NoArgsConstructor
 @Entity
 @NotNull
-//@Table(schema= "sign",name = "role")
 public class Role implements Serializable{
 	/**
 	 * 
@@ -38,8 +36,6 @@ public class Role implements Serializable{
 
 	@ManyToMany
 	@JoinTable(
-			//schema= "sign",
-	//name = "role_route",
             joinColumns = @JoinColumn(name = "role_id"),
             inverseJoinColumns = @JoinColumn(name = "route_id"))
 	Set <Route> routes;

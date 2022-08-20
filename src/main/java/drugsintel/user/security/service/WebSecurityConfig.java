@@ -63,15 +63,17 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter{
 				.permitAll()
 			.antMatchers("/accounting/login/**")
 				.permitAll()
-			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")//getuser test
-				.permitAll()//get user test
+			.antMatchers("/accounting/refreshtoken/**")
+				.permitAll()
+			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")
+				.permitAll()
 			.antMatchers(HttpMethod.DELETE, "/accounting/delete/{username}/**")
 				.access("#username == authentication.name")
 			.antMatchers(HttpMethod.PUT, "/accounting/update/{username}/**")
 				.access("#username == authentication.name")	
 			.antMatchers(HttpMethod.PUT, "/accounting/user/{username}/role/{role}/**")
-				//.access("#username == authentication.name")	
-				.access("hasAuthority('ADMIN')")
+				.access("#username == authentication.name")	
+				//.access("hasAuthority('ADMIN')")
 //			.antMatchers(HttpMethod.GET, "/accounting/username/{username}/**")
 //				.access("#username == authentication.name")
 			.anyRequest().authenticated();

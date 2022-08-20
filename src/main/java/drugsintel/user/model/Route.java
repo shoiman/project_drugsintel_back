@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import lombok.AllArgsConstructor;
@@ -21,7 +20,6 @@ import lombok.Setter;
 @AllArgsConstructor
 @Entity
 @NotNull
-//@Table(schema= "sign",name = "route")
 public class Route {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

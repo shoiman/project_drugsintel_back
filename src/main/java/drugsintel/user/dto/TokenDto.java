@@ -43,10 +43,11 @@ public class TokenDto {
 		this.routes = routes;
 	}
 	
-	public TokenDto(String token, String username, String email, Long id, String role, List<String> routes) {
+	public TokenDto(String token, String username, String email, String refreshToken, Long id, String role, List<String> routes) {
 		this.token = token;
 		this.username = username;
 		this.email = email;
+		this.refreshToken =refreshToken;
 		this.id = id;
 		this.role = role;
 		this.routes = routes;

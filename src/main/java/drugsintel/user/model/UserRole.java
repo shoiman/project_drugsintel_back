@@ -7,7 +7,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.IdClass;
-import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import drugsintel.user.model.id.UserRoleId;
@@ -22,7 +21,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NotNull
-//@Table(schema= "sign",name = "user_role")
 @IdClass(UserRoleId.class)
 public class UserRole implements Serializable{
 	/**
